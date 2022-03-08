@@ -1,0 +1,47 @@
+﻿{
+  "project_info": {
+    "project_number": "1065622218584",
+    "project_id": "firetalk-a185a",
+    "storage_bucket": "firetalk-a185a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1065622218584:android:a7ac1d8f6c68dfd957672d",
+        "android_client_info": {
+          "package_name": "com.example.firetalk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1065622218584-7t40ko3huso2oq2a5jshm5gpsajom9ac.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.firetalk",
+            "certificate_hash": "a81a3eff265e3d35e9a1e9643a467daaa4551e3a"
+          }
+        },
+        {
+          "client_id": "1065622218584-7oh62jsrflenpfebua82q8n6jd9djhtl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC12pBzNAM8Ajiy2bRp-krizeKJc2znHTg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1065622218584-7oh62jsrflenpfebua82q8n6jd9djhtl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
