@@ -1,0 +1,77 @@
+package com.example.firetalk.ui
+
+import android.app.Activity
+import android.content.Intent
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.example.firetalk.MainActivity
+import com.example.firetalk.databinding.ActivityLoginBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+
+class LoginActivity :AppCompatActivity() {
+    private lateinit var binding: ActivityLoginBinding
+    private lateinit var auth: FirebaseAuth
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        //firebase.auth
+        auth = Firebase.auth
+
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        initBinding()
+    }
+    private fun initBinding(){
+        with(binding){
+            btnLogin.setOnClickListener{
+                if(edtId.text.isEmpty() && edtPwd.text.isEmpty()){
+                    Toast.makeText(applicationContext,"아이디 또는 비밀번호를 입력해주세요.",Toast.LENGTH_SHORT).show()
+                }else{
+                    doLogin(edtId.text.toString(), edtPwd.text.toString())
+                }
+            }
+
+        }
+    }
+
+    private fun doLogin(id: String, pwd : String){
+        val intentMain = Intent(this, MainActivity::class.java)
+
+        auth.signInWithEmailAndPassword(id,pwd)
+            .addOnCompleteListener(this){task->
+                if(task.isSuccessful){
+                    Log.d("Login",task.toString())
+                    val user = auth.currentUser
+                    updateUser(user)
+                    finish()
+                    startActivity(intentMain)
+                }else{
+                    Toast.makeText(applicationContext,"아이디 또는 비밀번호를 확인해주세요.",Toast.LENGTH_SHORT).show()
+                    Log.d("Login 실패",task.toString())
+                    updateUser(null)
+                }
+            }
+    }
+    private fun updateUser(user:FirebaseUser?){
+
+    }
+    public override fun onStart(){
+        super.onStart()
+        val user = auth.currentUser
+        if(user != null){
+            reload()
+        }
+    }
+    private fun reload(){
+
+    }
+}
