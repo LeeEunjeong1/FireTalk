@@ -1,14 +1,10 @@
 package com.example.firetalk.ui
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.firetalk.MainActivity
 import com.example.firetalk.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -18,6 +14,8 @@ import com.google.firebase.ktx.Firebase
 class LoginActivity :AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +29,7 @@ class LoginActivity :AppCompatActivity() {
         initBinding()
     }
     private fun initBinding(){
+        val signupIntent = Intent(this,SignupActivity::class.java)
         with(binding){
             btnLogin.setOnClickListener{
                 if(edtId.text.isEmpty() && edtPwd.text.isEmpty()){
@@ -38,6 +37,11 @@ class LoginActivity :AppCompatActivity() {
                 }else{
                     doLogin(edtId.text.toString(), edtPwd.text.toString())
                 }
+            }
+            btnSignup.setOnClickListener {
+
+                startActivity(signupIntent)
+                Log.d("here","here")
             }
 
         }
@@ -67,6 +71,7 @@ class LoginActivity :AppCompatActivity() {
     public override fun onStart(){
         super.onStart()
         val user = auth.currentUser
+        Log.d("LoginActivity_onStart ",user.toString())
         if(user != null){
             reload()
         }
