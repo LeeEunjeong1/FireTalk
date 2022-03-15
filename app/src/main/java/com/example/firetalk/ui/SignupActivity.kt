@@ -70,11 +70,13 @@ class SignupActivity :AppCompatActivity() {
                                         .reference.child("userImage").child("$userIdSt/photo").putFile(imageUri!!)
                                         .addOnSuccessListener {
                                             var profile: Uri? = null
-                                            FirebaseStorage.getInstance().reference.child("userImages").child("$userIdSt/photo").downloadUrl
+                                            FirebaseStorage.getInstance().reference.child("userImage").child("$userIdSt/photo").downloadUrl
                                                 .addOnSuccessListener {
                                                     profile = it
+                                                    Log.d("profile_check","$profile")
                                                     val user1 = User(edtId.text.toString(),edtName.text.toString(),profile.toString(),userIdSt)
-                                                    database.child("users").child(edtId.text.toString()).setValue(user1)
+                                                    Log.d("user1",user1.email)
+                                                    database.child("users").child(userId.toString()).setValue(user1)
                                                 }
                                         }
                                     Toast.makeText(applicationContext,"회원가입이 완료되었습니다.",Toast.LENGTH_SHORT).show()
