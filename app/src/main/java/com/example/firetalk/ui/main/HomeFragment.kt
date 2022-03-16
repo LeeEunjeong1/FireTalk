@@ -22,21 +22,38 @@ class HomeFragment : Fragment() {
     private val binding get() = lBinding!!
 
     private lateinit var database : DatabaseReference
+    private var adapter = FriendAdapter()
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
         lBinding = FragmentMainHomeBinding.inflate(inflater, container, false)
 
-        val adapter = FriendAdapter()
+
+        initLayout()
+        getFriend()
+
+        return binding.root
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        lBinding = null
+    }
+
+    private fun initLayout(){
         binding.recyclerView.adapter = adapter
-
-
+    }
+    private fun getFriend(){
         database = Firebase.database.reference
         val myUid = Firebase.auth.currentUser?.uid.toString()
         FirebaseDatabase.getInstance().reference.child("users").addValueEventListener(object : ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
-
             override fun onDataChange(snapshot: DataSnapshot) {
                 adapter.clearList()
                 for(data in snapshot.children){
@@ -52,18 +69,6 @@ class HomeFragment : Fragment() {
 
             }
         })
-
-        return binding.root
-
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        lBinding = null
     }
 
 }
