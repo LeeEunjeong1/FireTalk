@@ -61,9 +61,6 @@ class HomeFragment : Fragment() {
                     if(item?.uid.equals(myUid)){
                         continue
                     }
-                    Log.d("onDataChange","${item?.image}")
-                    Log.d("onDataChange","${item?.uid}")
-                    Log.d("onDataChange","${item?.email}")
                     adapter.setFriendList(item!!)
                 }
 
