@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.firetalk.databinding.ActivityLoginBinding
 import com.example.firetalk.ui.main.MainActivity
+import com.example.firetalk.utils.UserPreferences
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -55,19 +56,15 @@ class LoginActivity :AppCompatActivity() {
             .addOnCompleteListener(this){task->
                 if(task.isSuccessful){
                     Log.d("Login",task.toString())
-                    val user = auth.currentUser
-                    updateUser(user)
+                    UserPreferences.id = auth.currentUser!!.uid
                     finish()
                     startActivity(intentMain)
                 }else{
                     Toast.makeText(applicationContext,"아이디 또는 비밀번호를 확인해주세요.",Toast.LENGTH_SHORT).show()
                     Log.d("Login 실패",task.toString())
-                    updateUser(null)
+                    UserPreferences.id = ""
                 }
             }
-    }
-    private fun updateUser(user:FirebaseUser?){
-
     }
     public override fun onStart(){
         super.onStart()
