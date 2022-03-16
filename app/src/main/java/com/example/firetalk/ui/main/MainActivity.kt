@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var bnv_main = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        val bnv_main = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
         bnv_main.run { setOnItemSelectedListener {
             when(it.itemId) {
