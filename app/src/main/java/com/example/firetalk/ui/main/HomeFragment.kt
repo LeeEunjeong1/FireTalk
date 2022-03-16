@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firetalk.databinding.FragmentMainHomeBinding
 import com.example.firetalk.model.Friend
+import com.example.firetalk.utils.UserPreferences
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
@@ -49,7 +50,8 @@ class HomeFragment : Fragment() {
     }
     private fun getFriend(){
         database = Firebase.database.reference
-        val myUid = Firebase.auth.currentUser?.uid.toString()
+      //  val myUid = Firebase.auth.currentUser?.uid.toString()
+        val myUid = UserPreferences.id
         FirebaseDatabase.getInstance().reference.child("users").addValueEventListener(object : ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
