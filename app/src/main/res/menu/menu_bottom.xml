@@ -4,13 +4,17 @@
     <item android:id="@+id/tab1"
         app:showAsAction="ifRoom"
         android:enabled="true" android:checked="true"
-        android:title="홈" />
+        android:title="홈"
+        android:icon="@drawable/menu_home"
+        />
     <item android:id="@+id/tab2"
         app:showAsAction="always"
         android:enabled="true"
-        android:title="채팅"/>
+        android:title="채팅"
+        android:icon="@drawable/menu_chat"/>
     <item android:id="@+id/tab3"
         app:showAsAction="always"
         android:enabled="true"
-        android:title="프로필"/>
+        android:title="프로필"
+        android:icon="@drawable/menu_profile"/>
 </menu>

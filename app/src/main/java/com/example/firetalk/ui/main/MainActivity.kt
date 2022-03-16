@@ -1,4 +1,4 @@
-package com.example.firetalk.ui
+package com.example.firetalk.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,16 +17,16 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId) {
                 R.id.tab1 -> {
                     // 다른 프래그먼트 화면으로 이동하는 기능
-                    val restFragment = Fragment()
-                    supportFragmentManager.beginTransaction().replace(R.id.main_layout, restFragment).commit()
+                    val homeFragment = HomeFragment()
+                    supportFragmentManager.beginTransaction().replace(R.id.main_layout, homeFragment).commit()
                 }
                 R.id.tab2 -> {
-                    val searchFragment = Fragment()
-                    supportFragmentManager.beginTransaction().replace(R.id.main_layout, searchFragment).commit()
+                    val chatFragment = ChatFragment()
+                    supportFragmentManager.beginTransaction().replace(R.id.main_layout, chatFragment).commit()
                 }
                 R.id.tab3 -> {
-                    val reservationFragment = Fragment()
-                    supportFragmentManager.beginTransaction().replace(R.id.main_layout, reservationFragment).commit()
+                    val profileFragment = ProfileFragment()
+                    supportFragmentManager.beginTransaction().replace(R.id.main_layout, profileFragment).commit()
                 }
             }
             true
