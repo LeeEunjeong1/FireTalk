@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.example.firetalk.databinding.ActivitySplashBinding
+import com.example.firetalk.utils.UserPreferences
 
 class SplashActivity :AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
@@ -22,6 +23,8 @@ class SplashActivity :AppCompatActivity() {
             startActivity(intent)
             finish()
         },2000)
+
+        UserPreferences.init(this)
 
 
     }
