@@ -3,6 +3,9 @@ package com.example.firetalk.ui.main
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.firetalk.R
+import com.example.firetalk.ui.main.chat.ChatFragment
+import com.example.firetalk.ui.main.home.HomeFragment
+import com.example.firetalk.ui.main.profile.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {

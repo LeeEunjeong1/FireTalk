@@ -1,4 +1,4 @@
-package com.example.firetalk.ui.main
+package com.example.firetalk.ui.main.chat
 
 import android.os.Bundle
 import android.util.Log
@@ -6,15 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.firetalk.databinding.FragmentMainProfileBinding
+import com.example.firetalk.databinding.FragmentMainChatBinding
 
-class ProfileFragment : Fragment() {
+class ChatFragment : Fragment() {
 
-    private var lBinding: FragmentMainProfileBinding? = null
+    private var lBinding: FragmentMainChatBinding? = null
     private val binding get() = lBinding!!
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
-        lBinding = FragmentMainProfileBinding.inflate(inflater, container, false)
+        lBinding = FragmentMainChatBinding.inflate(inflater, container, false)
 
         return binding.root
 
