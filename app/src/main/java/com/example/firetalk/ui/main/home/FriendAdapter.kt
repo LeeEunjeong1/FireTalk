@@ -1,16 +1,18 @@
-package com.example.firetalk.ui.main
+package com.example.firetalk.ui.main.home
 
-import android.util.Log
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.firetalk.model.Friend
 import com.example.firetalk.databinding.ItemFriendBinding
+import com.example.firetalk.ui.ChattingActivity
 
 class FriendAdapter: RecyclerView.Adapter<FriendViewHolder>() {
 
     private var friendList = mutableListOf<Friend>()
+
     fun  clearList(){
         friendList.clear()
     }
@@ -21,18 +23,12 @@ class FriendAdapter: RecyclerView.Adapter<FriendViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-
         val binding = ItemFriendBinding.inflate(inflater, parent, false)
         return FriendViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: FriendViewHolder, position: Int) {
-        val friendList = friendList[position]
-        holder.binding.name.text = friendList.name
-        holder.binding.email.text = friendList.email
-        Glide.with(holder.itemView.context).load(friendList.image).into(holder.binding.profileImage)
-        Log.d("profile : ",friendList.image.toString())
-
+        (holder as? FriendViewHolder)?.onBind(friendList[position])
     }
 
     override fun getItemCount(): Int {
@@ -40,6 +36,20 @@ class FriendAdapter: RecyclerView.Adapter<FriendViewHolder>() {
     }
 }
 
-class FriendViewHolder(val binding: ItemFriendBinding) : RecyclerView.ViewHolder(binding.root) {
+class FriendViewHolder(private val binding: ItemFriendBinding) : RecyclerView.ViewHolder(binding.root) {
+    fun onBind(item: Friend){
+        with(binding){
+            name.text = item.name
+            email.text = item.email
+            Glide.with(itemView.context).load(item.image).into(profileImage)
+        }
+        //친구 클릭시 채팅창으로 넘어가기
+        itemView.setOnClickListener {
+            val intent = Intent(it.context, ChattingActivity::class.java)
+
+            intent.putExtra("uid",item.uid)
+            it.context.startActivity(intent)
+        }
+    }
 
 }
