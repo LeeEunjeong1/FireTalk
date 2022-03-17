@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.example.firetalk.databinding.FragmentMainHomeBinding
 import com.example.firetalk.model.Friend
 import com.example.firetalk.utils.UserPreferences
@@ -43,6 +44,7 @@ class HomeFragment : Fragment() {
 
     private fun initLayout(){
         binding.recyclerView.adapter = adapter
+
     }
     private fun getFriend(){
         database = Firebase.database.reference
@@ -57,6 +59,9 @@ class HomeFragment : Fragment() {
                 for(data in snapshot.children){
                     val item = data.getValue<Friend>()
                     if(item?.uid.equals(myUid)){
+                        binding.name.text = item?.name
+                        binding.email.text = item?.email
+                        Glide.with(this@HomeFragment).load(item?.image).into(binding.profileImage)
                         continue
                     }
                     adapter.setFriendList(item!!)
