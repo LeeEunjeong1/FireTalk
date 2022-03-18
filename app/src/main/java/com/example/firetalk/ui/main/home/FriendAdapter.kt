@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.firetalk.model.Friend
 import com.example.firetalk.databinding.ItemFriendBinding
 import com.example.firetalk.ui.ChattingActivity
@@ -41,7 +42,10 @@ class FriendViewHolder(private val binding: ItemFriendBinding) : RecyclerView.Vi
         with(binding){
             name.text = item.name
             email.text = item.email
-            Glide.with(itemView.context).load(item.image).into(profileImage)
+            Glide.with(itemView.context)
+                .load(item.image)
+                .apply(RequestOptions().circleCrop())
+                .into(profileImage)
         }
         //친구 클릭시 채팅창으로 넘어가기
         itemView.setOnClickListener {
