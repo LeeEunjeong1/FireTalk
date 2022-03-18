@@ -91,7 +91,6 @@ class ChatViewHolder(private val binding: ItemChatBinding) : RecyclerView.ViewHo
         val lastMessageKey = commentMap.keys.toTypedArray()[0]
         binding.message.text = item.comments[lastMessageKey]?.message
         binding.timeStamp.text = item.comments[lastMessageKey]?.time
-
     }
 
 }
