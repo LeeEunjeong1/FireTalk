@@ -123,7 +123,7 @@ class ChattingActivity : AppCompatActivity() {
                     adapter.setChattingList(item!!)
                 }
                 adapter.setFriend(friendImage,friendName)
-                binding.recyclerView?.scrollToPosition(adapter.itemCount-1)
+                binding.recyclerView.scrollToPosition(adapter.itemCount-1)
             }
         })
     }

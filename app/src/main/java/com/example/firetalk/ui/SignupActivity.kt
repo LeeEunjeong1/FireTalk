@@ -69,7 +69,7 @@ class SignupActivity :AppCompatActivity() {
                                     FirebaseStorage.getInstance()
                                         .reference.child("userImage").child("$userIdSt/photo").putFile(imageUri!!)
                                         .addOnSuccessListener {
-                                            var profile: Uri? = null
+                                            var profile: Uri?
                                             FirebaseStorage.getInstance().reference.child("userImage").child("$userIdSt/photo").downloadUrl
                                                 .addOnSuccessListener {
                                                     profile = it
