@@ -1,22 +1,23 @@
 package com.example.firetalk.ui
 
-import android.content.Intent
+import android.os.Build
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
+import androidx.core.view.marginEnd
+import androidx.core.view.marginStart
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.firetalk.R
-import com.example.firetalk.databinding.ItemChatBinding
 import com.example.firetalk.model.Friend
-import com.example.firetalk.databinding.ItemFriendBinding
 import com.example.firetalk.databinding.ItemMessageBinding
 import com.example.firetalk.model.Chat
-import com.example.firetalk.ui.ChattingActivity
 import com.example.firetalk.utils.UserPreferences
 import com.google.firebase.database.DatabaseReference
 
@@ -63,6 +64,7 @@ class ChattingViewHolder(private val binding: ItemMessageBinding) : RecyclerView
     val image_profile : ImageView = binding.profileImage
     val friend_name : TextView = binding.name
 
+    @RequiresApi(Build.VERSION_CODES.M)
     fun onBind(item: Chat.Comment){
         with(binding){
             message.textSize = 20F
@@ -73,12 +75,13 @@ class ChattingViewHolder(private val binding: ItemMessageBinding) : RecyclerView
                 message.setBackgroundResource(R.drawable.my_bubble)
                 name.visibility = View.INVISIBLE
                 profileImage.visibility = View.INVISIBLE
-                layout.gravity = Gravity.RIGHT
+
+                layoutMessage.gravity = Gravity.END
             }else{
-                layout.visibility = View.VISIBLE
+                layoutMessage.visibility = View.VISIBLE
                 name.visibility = View.VISIBLE
                 message.setBackgroundResource(R.drawable.friend_bubble)
-                layout.gravity = Gravity.LEFT
+                layoutMessage.gravity = Gravity.START
             }
         }
     }
