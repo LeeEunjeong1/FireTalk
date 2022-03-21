@@ -3,8 +3,9 @@ package com.example.firetalk.ui
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
 import com.example.firetalk.databinding.ActivityChattingBinding
 import com.example.firetalk.model.Chat
 import com.example.firetalk.model.Friend
@@ -30,14 +31,13 @@ class ChattingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityChattingBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         friendUid = intent.getStringExtra("uid")
         myUid = UserPreferences.id
 
-
         fireDatabase = Firebase.database.reference
         initListener()
+        setContentView(binding.root)
     }
 
     private fun initListener(){
@@ -77,7 +77,7 @@ class ChattingActivity : AppCompatActivity() {
         fireDatabase.child("chatrooms").orderByChild("users/$myUid").equalTo(true)
             .addListenerForSingleValueEvent(object : ValueEventListener{
                 override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
+                    Toast.makeText(applicationContext,"다시 한 번 시도해주세요.", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -97,7 +97,7 @@ class ChattingActivity : AppCompatActivity() {
         fireDatabase.child("users").child(friendUid.toString()).addListenerForSingleValueEvent(
             object : ValueEventListener {
                 override fun onCancelled(error: DatabaseError) {
-
+                    Toast.makeText(applicationContext,"다시 한 번 시도해주세요.", Toast.LENGTH_SHORT).show()
                 }
                 override fun onDataChange(snapshot: DataSnapshot) {
                     friend = snapshot.getValue<Friend>()
@@ -106,14 +106,12 @@ class ChattingActivity : AppCompatActivity() {
                     binding.name.text = friend?.name
                     getMessageList(friendImage!!,friendName!!)
                 }
-
-
             })
     }
     private fun getMessageList(friendImage: String,friendName:String){
         fireDatabase.child("chatrooms").child(chatRoomUid.toString()).child("comments").addValueEventListener(object : ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Toast.makeText(applicationContext,"다시 한 번 시도해주세요.", Toast.LENGTH_SHORT).show()
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
