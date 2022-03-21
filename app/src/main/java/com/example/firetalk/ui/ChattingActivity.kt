@@ -113,7 +113,6 @@ class ChattingActivity : AppCompatActivity() {
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(applicationContext,"다시 한 번 시도해주세요.", Toast.LENGTH_SHORT).show()
             }
-
             override fun onDataChange(snapshot: DataSnapshot) {
                 adapter.clearList()
                 for(data in snapshot.children){
