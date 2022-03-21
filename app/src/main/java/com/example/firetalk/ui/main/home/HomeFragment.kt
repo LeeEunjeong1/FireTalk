@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.firetalk.databinding.FragmentMainHomeBinding
@@ -14,6 +15,7 @@ import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import java.lang.Exception
 
 class HomeFragment : Fragment() {
 
@@ -52,20 +54,26 @@ class HomeFragment : Fragment() {
         val myUid = UserPreferences.id
         FirebaseDatabase.getInstance().reference.child("users").addValueEventListener(object : ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Toast.makeText(requireContext(),"error",Toast.LENGTH_SHORT).show()
             }
             override fun onDataChange(snapshot: DataSnapshot) {
                 adapter.clearList()
                 for(data in snapshot.children){
                     val item = data.getValue<Friend>()
+                    //내 프로필
                     if(item?.uid.equals(myUid)){
-                        binding.name.text = item?.name
-                        binding.email.text = item?.email
-                        Glide
-                            .with(this@HomeFragment)
-                            .load(item?.image)
-                            .apply(RequestOptions().circleCrop())
-                            .into(binding.profileImage)
+                        try{
+                            binding.name.text = item?.name
+                            binding.email.text = item?.email
+                            Glide
+                                .with(this@HomeFragment)
+                                .load(item?.image)
+                                .apply(RequestOptions().circleCrop())
+                                .into(binding.profileImage)
+
+                        }catch (e:Exception){
+                            Toast.makeText(requireContext(),e.message,Toast.LENGTH_SHORT).show()
+                        }
                         continue
                     }
                     adapter.setFriendList(item!!)

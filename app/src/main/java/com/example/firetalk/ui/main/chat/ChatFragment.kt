@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.firetalk.databinding.FragmentMainChatBinding
 import com.example.firetalk.model.Chat
-import com.example.firetalk.ui.main.home.ChatListAdapter
 import com.example.firetalk.utils.UserPreferences
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError

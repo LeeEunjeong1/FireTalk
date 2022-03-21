@@ -1,4 +1,4 @@
-package com.example.firetalk.ui.main.home
+package com.example.firetalk.ui.main.chat
 
 import android.content.Intent
 import android.view.LayoutInflater
