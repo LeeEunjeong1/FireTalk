@@ -75,12 +75,12 @@ class ChattingViewHolder(private val binding: ItemMessageBinding) : RecyclerView
                 message.setBackgroundResource(R.drawable.my_bubble)
                 name.visibility = View.INVISIBLE
                 profileImage.visibility = View.INVISIBLE
-
                 layoutMessage.gravity = Gravity.END
             }else{
                 layoutMessage.visibility = View.VISIBLE
                 name.visibility = View.VISIBLE
                 message.setBackgroundResource(R.drawable.friend_bubble)
+                profileImage.visibility = View.VISIBLE
                 layoutMessage.gravity = Gravity.START
             }
         }
