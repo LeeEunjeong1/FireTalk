@@ -42,6 +42,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="10dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
                 app:layout_constraintStart_toStartOf="@id/chatting"
                 app:layout_constraintTop_toBottomOf="@+id/chatting"
                 app:layout_constraintTop_toTopOf="@id/chatting"/>

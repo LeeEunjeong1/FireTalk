@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.firetalk.databinding.ActivityChattingBinding
 import com.example.firetalk.model.Chat
 import com.example.firetalk.model.Friend
@@ -94,6 +96,9 @@ class ChattingActivity : AppCompatActivity() {
     }
     private fun getFriendInfo(){
         binding.recyclerView.adapter = adapter
+        val manager = LinearLayoutManager(applicationContext)
+        manager.stackFromEnd = true
+        binding.recyclerView.layoutManager = manager
         fireDatabase.child("users").child(friendUid.toString()).addListenerForSingleValueEvent(
             object : ValueEventListener {
                 override fun onCancelled(error: DatabaseError) {
