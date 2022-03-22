@@ -17,6 +17,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.firetalk.databinding.FragmentMainProfileBinding
 import com.example.firetalk.model.Friend
 import com.example.firetalk.ui.LoginActivity
+import com.example.firetalk.utils.LoadingDialog
 import com.example.firetalk.utils.UserPreferences
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -37,6 +38,7 @@ class ProfileFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var fireDatabase : DatabaseReference
     private var imageUri : Uri? = null
+    private val loadingDialog by lazy { LoadingDialog(requireContext()) }
 
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
@@ -119,11 +121,12 @@ class ProfileFragment : Fragment() {
                                                 val photoUri : Uri = it
                                                 Log.d("profileImage",it.toString())
                                                 fireDatabase.child("users").child(UserPreferences.id).child("image").setValue(photoUri.toString())
+                                                loadingDialog.dismiss()
                                                 Toast.makeText(context,"변경되었습니다.",Toast.LENGTH_SHORT).show()
                                             }
                                         }
                                     }
-                            }
+                            }.apply { loadingDialog.show() }
                     }else{
                         Toast.makeText(context,"변경되었습니다.",Toast.LENGTH_SHORT).show()
                     }
