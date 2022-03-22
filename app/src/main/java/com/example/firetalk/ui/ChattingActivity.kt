@@ -45,7 +45,7 @@ class ChattingActivity : AppCompatActivity() {
         val time = System.currentTimeMillis()
         val dateFormat = SimpleDateFormat("MM월dd일 hh:mm", Locale.getDefault())
         val curTime = dateFormat.format(Date(time)).toString()
-
+        checkChatRoom()
         with(binding){
             imageView.setOnClickListener{
                 val chatModel = Chat()
@@ -69,7 +69,7 @@ class ChattingActivity : AppCompatActivity() {
                     sendMsg.text = null
                 }
             }
-            checkChatRoom()
+
         }
     }
 
@@ -104,6 +104,7 @@ class ChattingActivity : AppCompatActivity() {
                     val friendImage = friend?.image
                     val friendName = friend?.name
                     binding.name.text = friend?.name
+                    Log.d("friend_name",friend?.name!!)
                     getMessageList(friendImage!!,friendName!!)
                 }
             })
