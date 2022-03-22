@@ -10,6 +10,8 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.firetalk.databinding.ActivityLoginBinding
 import com.example.firetalk.databinding.ActivitySignupBinding
 import com.example.firetalk.model.User
@@ -96,7 +98,12 @@ class SignupActivity :AppCompatActivity() {
     private var getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
         if(it.resultCode == AppCompatActivity.RESULT_OK){
             imageUri = it.data?.data // 이미지 원본 경로
-            binding.profile.setImageURI(imageUri)
+            Glide.with(applicationContext)
+                .load(imageUri)
+                .apply(
+                    RequestOptions()
+                        .circleCrop())
+                .into(binding.profile)
             pc = true
         }
 
