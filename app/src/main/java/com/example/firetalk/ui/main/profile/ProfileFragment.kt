@@ -25,6 +25,9 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
 
@@ -44,8 +47,7 @@ class ProfileFragment : Fragment() {
 
         imageChange = false
 
-        initLayout()
-        initListener()
+
 
         return binding.root
 
@@ -53,6 +55,9 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initLayout()
+        initListener()
     }
 
     override fun onDestroy() {
@@ -104,21 +109,23 @@ class ProfileFragment : Fragment() {
                     //이름변경
                     fireDatabase.child("users/${UserPreferences.id}/name").setValue(edtName.text.toString())
                     edtName.clearFocus()
+                    //프로필 사진 변경
                     if(imageChange){
-                        //프로필 사진 변경
-                        
-                        FirebaseStorage.getInstance().reference
-                            .child("userImage/${UserPreferences.id}/photo").delete().addOnSuccessListener {
-                                FirebaseStorage.getInstance().reference.child("userImage/${UserPreferences.id}/photo").putFile(imageUri!!).addOnSuccessListener {
-                                    FirebaseStorage.getInstance().reference.child("userImage/${UserPreferences.id}/photo").downloadUrl.addOnSuccessListener {
-                                        val photoUri : Uri = it
-                                        Log.d("profileImage",it.toString())
-                                        fireDatabase.child("users").child(UserPreferences.id).child("image").setValue(photoUri.toString())
-
-                                        Toast.makeText(context,"변경되었습니다.",Toast.LENGTH_SHORT).show()
+                            CoroutineScope(Dispatchers.Default).launch {
+                                FirebaseStorage.getInstance().reference
+                                    .child("userImage/${UserPreferences.id}/photo").delete().addOnSuccessListener {
+                                        FirebaseStorage.getInstance().reference.child("userImage/${UserPreferences.id}/photo").putFile(imageUri!!).addOnSuccessListener {
+                                            FirebaseStorage.getInstance().reference.child("userImage/${UserPreferences.id}/photo").downloadUrl.addOnSuccessListener {
+                                                val photoUri : Uri = it
+                                                Log.d("profileImage",it.toString())
+                                                fireDatabase.child("users").child(UserPreferences.id).child("image").setValue(photoUri.toString())
+                                                Toast.makeText(context,"변경되었습니다.",Toast.LENGTH_SHORT).show()
+                                            }
+                                        }
                                     }
-                                }
                             }
+                    }else{
+                        Toast.makeText(context,"변경되었습니다.",Toast.LENGTH_SHORT).show()
                     }
                 }else{
                     Toast.makeText(context,"이름을 입력해주세요.",Toast.LENGTH_SHORT).show()
