@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.firetalk.databinding.FragmentMainChatBinding
 import com.example.firetalk.model.Chat
 import com.example.firetalk.utils.UserPreferences
@@ -28,9 +29,7 @@ class ChatFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
         lBinding = FragmentMainChatBinding.inflate(inflater, container, false)
-        binding.recyclerView.adapter = adapter
 
-        getChatRoom()
 
         return binding.root
 
@@ -38,6 +37,9 @@ class ChatFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.recyclerView.adapter = adapter
+        getChatRoom()
     }
 
     override fun onDestroy() {
@@ -49,7 +51,7 @@ class ChatFragment : Fragment() {
         myUid = UserPreferences.id
         fireDatabase.child("chatrooms").orderByChild("users/$myUid").equalTo(true).addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Toast.makeText(requireContext(),"다시 한 번 시도해주세요.", Toast.LENGTH_SHORT).show()
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {

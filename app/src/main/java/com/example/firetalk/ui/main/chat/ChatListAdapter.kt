@@ -48,7 +48,7 @@ class ChatListAdapter: RecyclerView.Adapter<ChatViewHolder>() {
         (holder as? ChatViewHolder)?.onBind(chatList[position])
         var friendUid : String?=null
         for(user in chatList[position].users.keys){
-            if(!user.equals(UserPreferences.id)){
+            if(user != UserPreferences.id){
                 friendUid = user
                 friendUsers.add(friendUid)
             }
