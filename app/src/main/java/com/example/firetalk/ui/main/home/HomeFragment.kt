@@ -1,6 +1,7 @@
 package com.example.firetalk.ui.main.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -28,20 +29,15 @@ class HomeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
         lBinding = FragmentMainHomeBinding.inflate(inflater, container, false)
 
-        initLayout()
-        getFriend()
-
         return binding.root
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-    }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        lBinding = null
+        initLayout()
+        getFriend()
     }
 
     private fun initLayout(){
@@ -63,16 +59,18 @@ class HomeFragment : Fragment() {
                     //내 프로필
                     if(item?.uid.equals(myUid)){
                         try{
-                            binding.name.text = item?.name
-                            binding.email.text = item?.email
-                            Glide
-                                .with(this@HomeFragment)
-                                .load(item?.image)
-                                .apply(RequestOptions().circleCrop())
-                                .into(binding.profileImage)
+                            if(context != null){
+                                binding.name.text = item?.name
+                                binding.email.text = item?.email
+                                Glide
+                                    .with(requireContext())
+                                    .load(item?.image)
+                                    .apply(RequestOptions().circleCrop())
+                                    .into(binding.profileImage)
+                            }
 
                         }catch (e:Exception){
-                            Toast.makeText(requireContext(),e.message,Toast.LENGTH_SHORT).show()
+                            e.printStackTrace()
                         }
                         continue
                     }
