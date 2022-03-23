@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.firetalk.databinding.FragmentMainProfileBinding
 import com.example.firetalk.model.Friend
+import com.example.firetalk.model.User
 import com.example.firetalk.ui.LoginActivity
 import com.example.firetalk.utils.LoadingDialog
 import com.example.firetalk.utils.UserPreferences
@@ -100,19 +101,28 @@ class ProfileFragment : Fragment() {
 
             }
             //프로필사진 클릭했을때
+
             imageView.setOnClickListener {
-                val intentImage = Intent(Intent.ACTION_PICK)
-                intentImage.type = MediaStore.Images.Media.CONTENT_TYPE
-                getResult.launch(intentImage)
+                if(UserPreferences.google != "true"){
+                    val intentImage = Intent(Intent.ACTION_PICK)
+                    intentImage.type = MediaStore.Images.Media.CONTENT_TYPE
+                    getResult.launch(intentImage)
+                }else{
+                    Toast.makeText(context,"구글 로그인은 프로필을 변경할 수 없습니다.",Toast.LENGTH_SHORT).show()
+                }
             }
+            //edittext
+            edtName.isEnabled = UserPreferences.google != "true"
+
             //저장하기 버튼
             btnProfile.setOnClickListener {
-                if(edtName.text.isNotEmpty()){
-                    //이름변경
-                    fireDatabase.child("users/${UserPreferences.id}/name").setValue(edtName.text.toString())
-                    edtName.clearFocus()
-                    //프로필 사진 변경
-                    if(imageChange){
+                if(UserPreferences.google != "true"){
+                    if(edtName.text.isNotEmpty()){
+                        //이름변경
+                        fireDatabase.child("users/${UserPreferences.id}/name").setValue(edtName.text.toString())
+                        edtName.clearFocus()
+                        //프로필 사진 변경
+                        if(imageChange){
                             CoroutineScope(Dispatchers.Default).launch {
                                 FirebaseStorage.getInstance().reference
                                     .child("userImage/${UserPreferences.id}/photo").delete().addOnSuccessListener {
@@ -127,12 +137,16 @@ class ProfileFragment : Fragment() {
                                         }
                                     }
                             }.apply { loadingDialog.show() }
+                        }else{
+                            Toast.makeText(context,"변경되었습니다.",Toast.LENGTH_SHORT).show()
+                        }
                     }else{
-                        Toast.makeText(context,"변경되었습니다.",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context,"이름을 입력해주세요.",Toast.LENGTH_SHORT).show()
                     }
                 }else{
-                    Toast.makeText(context,"이름을 입력해주세요.",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context,"구글 로그인은 프로필을 변경할 수 없습니다.",Toast.LENGTH_SHORT).show()
                 }
+
             }
         }
     }

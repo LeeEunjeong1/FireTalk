@@ -26,6 +26,8 @@ class SplashActivity :AppCompatActivity() {
 
         auth = Firebase.auth
 
+        UserPreferences.init(this)
+
         Handler(Looper.getMainLooper()).postDelayed({
             isUser()
         },2000)

@@ -10,6 +10,7 @@ object UserPreferences {
 
     //key
     private const val ID = "id"
+    private const val GOOGLE = "google"
 
     var id: String
         get() = sharedPreferences.getString(
@@ -17,6 +18,14 @@ object UserPreferences {
         )!!
         set(value) = sharedPreferences.edit().putString(
             ID, value
+        ).apply()
+
+    var google: String
+        get() = sharedPreferences.getString(
+            GOOGLE, ""
+        )!!
+        set(value) = sharedPreferences.edit().putString(
+            GOOGLE, value
         ).apply()
 
     fun init(context: Context){
@@ -29,5 +38,6 @@ object UserPreferences {
     fun logout()
     {
         id=""
+        google=""
     }
 }
