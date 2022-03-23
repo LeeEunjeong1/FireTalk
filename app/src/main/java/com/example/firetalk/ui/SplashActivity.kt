@@ -36,7 +36,7 @@ class SplashActivity :AppCompatActivity() {
     }
 
     private fun isUser(){
-        if(auth?.currentUser!=null){
+        if(UserPreferences.id!=""){
             Log.d("is_user",UserPreferences.id)
             val intent = Intent(this,MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
