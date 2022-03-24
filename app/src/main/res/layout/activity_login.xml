@@ -2,17 +2,19 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/main_talk">
 
-    <TextView
+    <ImageView
         android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="150dp"
         android:scaleType="centerCrop"
-        android:text = "FireTalk:D"
         android:textSize="50sp"
-        android:textColor="#e6abfc"
+        android:textColor="@color/white"
         android:gravity="center"
+        android:src="@drawable/logo_bubble"
         app:layout_constraintBottom_toTopOf="@id/cons"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,100 +24,102 @@
         android:id="@+id/cons"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView">
 
-        <EditText
-            android:id="@+id/edt_id"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/layout_edt"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:drawablePadding="10dp"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:paddingLeft="8dp"
-            android:textColor="#000000"
-            android:textColorHint="#888888"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toTopOf="@+id/edt_pwd"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/edt_pwd"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:drawablePadding="10dp"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:paddingLeft="8dp"
-            android:textColor="#000000"
-            android:textColorHint="#888888"
-            android:textSize="15sp"
+            android:layout_marginHorizontal="50dp"
+            android:orientation="vertical"
+            android:background="@drawable/layout_radius"
             app:layout_constraintBottom_toTopOf="@+id/btn_login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_id" />
+            app:layout_constraintTop_toTopOf="parent" >
+            <EditText
+                android:id="@+id/edt_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:drawablePadding="10dp"
+                android:hint="이메일"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="8dp"
+                android:backgroundTint="@color/white"
+                android:textColorHint="#888888"
+                android:textSize="15sp"
+                />
+
+            <EditText
+                android:id="@+id/edt_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:drawablePadding="10dp"
+                android:hint="비밀번호"
+                android:inputType="textPassword"
+                android:paddingLeft="8dp"
+                android:backgroundTint="@color/white"
+                android:textColorHint="#888888"
+                android:textSize="15sp"/>
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/btn_login"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="50dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:text="Login"
-            android:textColor="#FFFFFF"
+            android:text="로그인"
+            android:textColor="#888888"
+            android:backgroundTint="@color/white"
             app:backgroundTint="#e6abfc"
             app:layout_constraintBottom_toTopOf="@+id/btn_signup"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_id" />
+            app:layout_constraintTop_toBottomOf="@+id/layout_edt" />
 
-        <Button
+        <TextView
             android:id="@+id/btn_signup"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginHorizontal="50dp"
             android:layout_marginBottom="50dp"
-            android:text="Sign Up"
-            android:textColor="#FFFFFF"
-            app:backgroundTint="#e6abfc"
+            android:textColor="@color/white"
+            android:text="처음이신가요?"
+            android:gravity="end"
             app:layout_constraintBottom_toBottomOf="@id/btn_login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_login" />
 
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/btn_google_login"
+        <View
+            android:id="@+id/view"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="200dp"
+            android:layout_marginHorizontal="46dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_signup"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_signup" />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/btn_google_login"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="46dp"
+            android:layout_marginTop="100dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

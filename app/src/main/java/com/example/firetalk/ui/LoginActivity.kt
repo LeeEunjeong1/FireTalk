@@ -1,15 +1,12 @@
 package com.example.firetalk.ui
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.example.firetalk.R
 import com.example.firetalk.databinding.ActivityLoginBinding
 import com.example.firetalk.model.User
@@ -19,19 +16,16 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.Api
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
-import java.lang.Exception
+
 
 class LoginActivity :AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -70,6 +64,8 @@ class LoginActivity :AppCompatActivity() {
             btnGoogleLogin.setOnClickListener{
                 doLoginGoogle()
             }
+            val textView : TextView = btnGoogleLogin.getChildAt(0) as TextView
+            textView.text = "Google 계정으로 로그인"
 
         }
     }
