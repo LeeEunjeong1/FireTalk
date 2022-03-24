@@ -1,5 +1,6 @@
 package com.example.firetalk.ui
 
+import android.graphics.Color
 import android.os.Build
 import android.util.Log
 import android.view.Gravity
@@ -72,16 +73,23 @@ class ChattingViewHolder(private val binding: ItemMessageBinding) : RecyclerView
             timeStamp.text = item.time
             //본인 채팅
             if(item.uid.equals(UserPreferences.id)){
-                message.setBackgroundResource(R.drawable.my_bubble)
                 name.visibility = View.INVISIBLE
                 profileImage.visibility = View.INVISIBLE
                 layoutMessage.gravity = Gravity.END
+                with(message) {
+                    setBackgroundResource(R.drawable.layout_chat)
+//                    setTextColor(Color.WHITE)
+                }
+
             }else{
                 layoutMessage.visibility = View.VISIBLE
                 name.visibility = View.VISIBLE
-                message.setBackgroundResource(R.drawable.friend_bubble)
                 profileImage.visibility = View.VISIBLE
                 layoutMessage.gravity = Gravity.START
+                with(message) {
+                    setBackgroundResource(R.drawable.layout_chat_recieve)
+//                    setTextColor(Color.BLACK)
+                }
             }
         }
     }
