@@ -19,3 +19,4 @@
 - 프로필 수정 (이미지, 이름 수정 가능)
 - 구글 로그인
 
+![image](https://user-images.githubusercontent.com/38210019/159862146-dfd3d15e-3ea1-499f-b841-48751d8d2eb4.png)
