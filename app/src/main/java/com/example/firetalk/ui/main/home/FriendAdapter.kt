@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.firetalk.model.Friend
 import com.example.firetalk.databinding.ItemFriendBinding
-import com.example.firetalk.ui.ChattingActivity
+import com.example.firetalk.ui.chatting.ChattingActivity
 
 class FriendAdapter: RecyclerView.Adapter<FriendViewHolder>() {
 

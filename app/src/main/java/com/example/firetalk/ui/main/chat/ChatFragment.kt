@@ -49,19 +49,24 @@ class ChatFragment : Fragment() {
 
     private fun getChatRoom(){
         myUid = UserPreferences.id
-        fireDatabase.child("chatrooms").orderByChild("users/$myUid").equalTo(true).addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(requireContext(),"다시 한 번 시도해주세요.", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                adapter.clearList()
-                for(data in snapshot.children){
-                    val item = data.getValue<Chat>()
-                    adapter.setChatList(item!!)
+        try {
+            fireDatabase.child("chatrooms").orderByChild("users/$myUid").equalTo(true).addListenerForSingleValueEvent(object : ValueEventListener{
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(requireContext(),"다시 한 번 시도해주세요.", Toast.LENGTH_SHORT).show()
                 }
-            }
-        })
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    adapter.clearList()
+                    for(data in snapshot.children){
+                        val item = data.getValue<Chat>()
+                        adapter.setChatList(item!!)
+                    }
+                }
+            })
+        }catch (e:Exception){
+            Toast.makeText(context,"잠시 후  다시 시도해주세요.",Toast.LENGTH_SHORT).show()
+        }
+
     }
 
 }

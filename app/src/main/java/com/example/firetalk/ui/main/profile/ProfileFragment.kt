@@ -70,20 +70,25 @@ class ProfileFragment : Fragment() {
 
     private fun initLayout(){
         //프로필 값 넣기
-        fireDatabase.child("users").child(UserPreferences.id).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onCancelled(error: DatabaseError) { }
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val userProfile = snapshot.getValue<Friend>()
-                Glide.with(requireContext())
-                    .load(userProfile?.image)
-                    .apply(
-                        RequestOptions()
-                        .circleCrop())
-                    .into(binding.imageView)
-                binding.edtId.text = userProfile?.email
-                binding.edtName.setText(userProfile?.name)
-            }
-        })
+        try{
+            fireDatabase.child("users").child(UserPreferences.id).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) { }
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val userProfile = snapshot.getValue<Friend>()
+                    Glide.with(requireContext())
+                        .load(userProfile?.image)
+                        .apply(
+                            RequestOptions()
+                                .circleCrop())
+                        .into(binding.imageView)
+                    binding.edtId.text = userProfile?.email
+                    binding.edtName.setText(userProfile?.name)
+                }
+            })
+        }catch (e:Exception){
+            Toast.makeText(context,"잠시 후  다시 시도해주세요.",Toast.LENGTH_SHORT).show()
+        }
+
 
     }
 

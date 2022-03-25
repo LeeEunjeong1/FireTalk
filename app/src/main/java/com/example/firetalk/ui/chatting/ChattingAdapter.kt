@@ -1,8 +1,6 @@
-package com.example.firetalk.ui
+package com.example.firetalk.ui.chatting
 
-import android.graphics.Color
 import android.os.Build
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +8,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.core.view.marginEnd
-import androidx.core.view.marginStart
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions

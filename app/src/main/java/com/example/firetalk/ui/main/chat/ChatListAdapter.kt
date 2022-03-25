@@ -11,7 +11,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.firetalk.databinding.ItemChatBinding
 import com.example.firetalk.model.Friend
 import com.example.firetalk.model.Chat
-import com.example.firetalk.ui.ChattingActivity
+import com.example.firetalk.ui.chatting.ChattingActivity
 import com.example.firetalk.utils.UserPreferences
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
