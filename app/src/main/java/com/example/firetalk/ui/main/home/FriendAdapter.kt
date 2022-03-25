@@ -17,6 +17,7 @@ class FriendAdapter: RecyclerView.Adapter<FriendViewHolder>() {
     fun  clearList(){
         friendList.clear()
     }
+
     fun setFriendList(friend: List<Friend>) {
         friendList.addAll(friend)
         notifyDataSetChanged()

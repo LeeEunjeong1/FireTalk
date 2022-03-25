@@ -26,8 +26,8 @@ class FriendViewModel : ViewModel() {
     var profile = MutableLiveData<MutableList<Friend>>()
     val myProfile get() = profile
 
-    var error = MutableLiveData<String>()
-    val errorData get() = error
+    var error1 = MutableLiveData<String>()
+    val errorData get() = error1
 
     fun  getFriend(){
         CoroutineScope(Dispatchers.Default).launch {
@@ -38,7 +38,7 @@ class FriendViewModel : ViewModel() {
                 database.child("users").addValueEventListener(object :
                     ValueEventListener {
                     override fun onCancelled(error: DatabaseError) {
-                        errorData.postValue(error.message)
+                        error1.postValue(error.message)
                     }
                     override fun onDataChange(snapshot: DataSnapshot) {
                         for(data in snapshot.children){
@@ -57,7 +57,7 @@ class FriendViewModel : ViewModel() {
                     }
                 })
             }catch (e:Exception){
-                error.postValue(e.message)
+                error1.postValue(e.message)
             }
         }
     }
