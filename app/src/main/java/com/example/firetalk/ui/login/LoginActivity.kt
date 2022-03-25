@@ -13,7 +13,6 @@ import com.example.firetalk.databinding.ActivityLoginBinding
 import com.example.firetalk.model.User
 import com.example.firetalk.ui.Signup.SignupActivity
 import com.example.firetalk.ui.main.MainActivity
-import com.example.firetalk.ui.main.profile.ProfileViewModel
 import com.example.firetalk.utils.UserPreferences
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -90,18 +89,6 @@ class LoginActivity :AppCompatActivity() {
             textView.text = "Google 계정으로 로그인"
 
         }
-    }
-
-    public override fun onStart(){
-        super.onStart()
-        val user = auth.currentUser
-        Log.d("LoginActivity_onStart ",user.toString())
-        if(user != null){
-            reload()
-        }
-    }
-    private fun reload(){
-
     }
 
     /*구글 로그인*/
