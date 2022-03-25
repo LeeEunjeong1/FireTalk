@@ -24,8 +24,6 @@ import kotlin.collections.ArrayList
 class ChatListAdapter: RecyclerView.Adapter<ChatViewHolder>() {
 
     private var chatList = mutableListOf<Chat>()
-    private var friendImage : String? = null
-    private var friendName : String? = null
     private val fireDatabase = FirebaseDatabase.getInstance().reference
 
     private val friendUsers : ArrayList<String> = arrayListOf()
@@ -33,8 +31,8 @@ class ChatListAdapter: RecyclerView.Adapter<ChatViewHolder>() {
     fun  clearList(){
         chatList.clear()
     }
-    fun setChatList(chat: Chat) {
-        chatList.add(chat)
+    fun setChatList(chat: List<Chat>) {
+        chatList.addAll(chat)
         notifyDataSetChanged()
     }
 
@@ -62,8 +60,8 @@ class ChatListAdapter: RecyclerView.Adapter<ChatViewHolder>() {
                 val friend = snapshot.getValue<Friend>()
                 Glide.with(holder.itemView.context).load(friend?.image)
                     .apply(RequestOptions().circleCrop())
-                    .into(holder.image_profile)
-                holder.friend_name.text = friend?.name
+                    .into(holder.imageProfile)
+                holder.friendName.text = friend?.name
             }
         })
         //채팅창으로 넘어가기
@@ -82,8 +80,8 @@ class ChatListAdapter: RecyclerView.Adapter<ChatViewHolder>() {
 
 class ChatViewHolder(private val binding: ItemChatBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    val image_profile : ImageView = binding.profileImage
-    val friend_name : TextView = binding.name
+    val imageProfile : ImageView = binding.profileImage
+    val friendName : TextView = binding.name
 
     fun onBind(item: Chat){
         val commentMap = TreeMap<String, Chat.Comment>(reverseOrder())
