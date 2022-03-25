@@ -53,7 +53,6 @@ class ProfileFragment : Fragment() {
 
         viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
 
-        observeProfile()
         imageChange = false
 
         return binding.root
@@ -63,6 +62,8 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.getUserProfile() //프로필 정보 불러오기
+        observeProfile() //프로필 매핑
         initListener()
     }
 
@@ -77,32 +78,38 @@ class ProfileFragment : Fragment() {
                 try{
                     val profileList = profileData.value
                     binding.edtId.text = profileList?.get(0)?.email
-                    binding.edtName.setText(profileList?.get(0)?.email)
+                    binding.edtName.setText(profileList?.get(0)?.name)
                     Glide.with(requireContext())
                         .load(profileList?.get(0)?.image)
-                        .apply(
-                            RequestOptions()
-                                .circleCrop())
+                        .apply(RequestOptions().circleCrop())
                         .into(binding.imageView)
                 }catch (e:Exception){
                     Toast.makeText(context,"잠시 후  다시 시도해주세요.",Toast.LENGTH_SHORT).show()
                 }
             }
+            changeSuccess.observe(viewLifecycleOwner){
+                if(it == true){
+                    loadingDialog.dismiss()
+                    Toast.makeText(context,"변경되었습니다.",Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(context,"잠시 후  다시 시도해주세요.",Toast.LENGTH_SHORT).show()
+                }
+
+            }
         }
     }
+
 
     private fun initListener(){
         with(binding){
             //로그아웃 버튼
             btnLogout.setOnClickListener {
                 UserPreferences.logout()
-                auth.signOut()
+                viewModel.logout()
                 val intent = Intent(requireContext(), LoginActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
                 activity?.finish()
-
             }
             //프로필사진 클릭했을때
             imageView.setOnClickListener {
@@ -122,24 +129,12 @@ class ProfileFragment : Fragment() {
                 if(UserPreferences.google != "true"){
                     if(edtName.text.isNotEmpty()){
                         //이름변경
-                        fireDatabase.child("users/${UserPreferences.id}/name").setValue(edtName.text.toString())
+                        viewModel.changeProfileName(edtName.text.toString())
                         edtName.clearFocus()
                         //프로필 사진 변경
                         if(imageChange){
-                            CoroutineScope(Dispatchers.Default).launch {
-                                FirebaseStorage.getInstance().reference
-                                    .child("userImage/${UserPreferences.id}/photo").delete().addOnSuccessListener {
-                                        FirebaseStorage.getInstance().reference.child("userImage/${UserPreferences.id}/photo").putFile(imageUri!!).addOnSuccessListener {
-                                            FirebaseStorage.getInstance().reference.child("userImage/${UserPreferences.id}/photo").downloadUrl.addOnSuccessListener {
-                                                val photoUri : Uri = it
-                                                Log.d("profileImage",it.toString())
-                                                fireDatabase.child("users").child(UserPreferences.id).child("image").setValue(photoUri.toString())
-                                                loadingDialog.dismiss()
-                                                Toast.makeText(context,"변경되었습니다.",Toast.LENGTH_SHORT).show()
-                                            }
-                                        }
-                                    }
-                            }.apply { loadingDialog.show() }
+                            loadingDialog.show()
+                            viewModel.changeProfileImage(imageUri!!)
                         }else{
                             Toast.makeText(context,"변경되었습니다.",Toast.LENGTH_SHORT).show()
                         }
@@ -149,7 +144,6 @@ class ProfileFragment : Fragment() {
                 }else{
                     Toast.makeText(context,"구글 로그인은 프로필을 변경할 수 없습니다.",Toast.LENGTH_SHORT).show()
                 }
-
             }
         }
     }
@@ -169,7 +163,6 @@ class ProfileFragment : Fragment() {
         }else{
             Toast.makeText(context,"다시 시도해주세요.",Toast.LENGTH_SHORT).show()
         }
-
     }
     companion object{
         var imageChange : Boolean =false
