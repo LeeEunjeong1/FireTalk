@@ -7,6 +7,7 @@ import android.os.Looper
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.firetalk.databinding.ActivitySplashBinding
+import com.example.firetalk.ui.login.LoginActivity
 import com.example.firetalk.ui.main.MainActivity
 import com.example.firetalk.utils.UserPreferences
 import com.google.firebase.auth.FirebaseAuth
@@ -44,7 +45,7 @@ class SplashActivity :AppCompatActivity() {
             finish()
         }else{
             Log.d("is_user2",UserPreferences.id)
-            val intent = Intent(this,LoginActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
             finish()

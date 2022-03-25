@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.firetalk.databinding.FragmentMainProfileBinding
-import com.example.firetalk.ui.LoginActivity
+import com.example.firetalk.ui.login.LoginActivity
 import com.example.firetalk.utils.LoadingDialog
 import com.example.firetalk.utils.UserPreferences
 class ProfileFragment : Fragment() {

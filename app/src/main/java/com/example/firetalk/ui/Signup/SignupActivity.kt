@@ -1,4 +1,4 @@
-package com.example.firetalk.ui
+package com.example.firetalk.ui.Signup
 
 import android.Manifest
 import android.content.Intent
@@ -12,9 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.firetalk.databinding.ActivityLoginBinding
 import com.example.firetalk.databinding.ActivitySignupBinding
 import com.example.firetalk.model.User
+import com.example.firetalk.ui.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
@@ -45,7 +45,7 @@ class SignupActivity :AppCompatActivity() {
         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1)
 
 
-        val loginIntent = Intent(this,LoginActivity::class.java)
+        val loginIntent = Intent(this, LoginActivity::class.java)
 
 
         with(binding){
