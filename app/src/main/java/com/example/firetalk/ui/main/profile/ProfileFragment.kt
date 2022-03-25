@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.firetalk.databinding.FragmentMainProfileBinding
@@ -36,6 +37,8 @@ class ProfileFragment : Fragment() {
     private var lBinding: FragmentMainProfileBinding? = null
     private val binding get() = lBinding!!
 
+    private lateinit var viewModel: ProfileViewModel
+
     private lateinit var auth: FirebaseAuth
     private lateinit var fireDatabase : DatabaseReference
     private var imageUri : Uri? = null
@@ -48,9 +51,10 @@ class ProfileFragment : Fragment() {
         auth = Firebase.auth
         fireDatabase = Firebase.database.reference
 
+        viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
+
+        observeProfile()
         imageChange = false
-
-
 
         return binding.root
 
@@ -59,7 +63,6 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initLayout()
         initListener()
     }
 
@@ -68,28 +71,24 @@ class ProfileFragment : Fragment() {
         lBinding = null
     }
 
-    private fun initLayout(){
-        //프로필 값 넣기
-        try{
-            fireDatabase.child("users").child(UserPreferences.id).addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onCancelled(error: DatabaseError) { }
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val userProfile = snapshot.getValue<Friend>()
+    private fun observeProfile(){
+        with(viewModel){
+            profileData.observe(viewLifecycleOwner){
+                try{
+                    val profileList = profileData.value
+                    binding.edtId.text = profileList?.get(0)?.email
+                    binding.edtName.setText(profileList?.get(0)?.email)
                     Glide.with(requireContext())
-                        .load(userProfile?.image)
+                        .load(profileList?.get(0)?.image)
                         .apply(
                             RequestOptions()
                                 .circleCrop())
                         .into(binding.imageView)
-                    binding.edtId.text = userProfile?.email
-                    binding.edtName.setText(userProfile?.name)
+                }catch (e:Exception){
+                    Toast.makeText(context,"잠시 후  다시 시도해주세요.",Toast.LENGTH_SHORT).show()
                 }
-            })
-        }catch (e:Exception){
-            Toast.makeText(context,"잠시 후  다시 시도해주세요.",Toast.LENGTH_SHORT).show()
+            }
         }
-
-
     }
 
     private fun initListener(){
@@ -106,7 +105,6 @@ class ProfileFragment : Fragment() {
 
             }
             //프로필사진 클릭했을때
-
             imageView.setOnClickListener {
                 if(UserPreferences.google != "true"){
                     val intentImage = Intent(Intent.ACTION_PICK)
