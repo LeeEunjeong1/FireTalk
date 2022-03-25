@@ -147,7 +147,6 @@ class ProfileFragment : Fragment() {
             }
         }
     }
-
     private var getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
         if(it.resultCode == AppCompatActivity.RESULT_OK){
             // 이미지 원본 경로

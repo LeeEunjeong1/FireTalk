@@ -2,13 +2,8 @@ package com.example.firetalk.ui.main.profile
 
 import android.net.Uri
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.cache.DiskCacheAdapter
-import com.bumptech.glide.request.RequestOptions
-import com.example.firetalk.model.Friend
 import com.example.firetalk.model.User
 import com.example.firetalk.utils.UserPreferences
 import com.google.firebase.auth.FirebaseAuth
@@ -26,8 +21,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ProfileViewModel : ViewModel(){
-    private lateinit var auth: FirebaseAuth
-    private lateinit var fireDatabase : DatabaseReference
+    private var auth: FirebaseAuth = Firebase.auth
+    private var fireDatabase : DatabaseReference = Firebase.database.reference
 
     var _profileData = MutableLiveData<MutableList<User>>()
     val profileData get() = _profileData
@@ -37,10 +32,6 @@ class ProfileViewModel : ViewModel(){
 
     var _error = MutableLiveData<String>()
     val errorData get() = _error
-    init{
-        auth = Firebase.auth
-        fireDatabase = Firebase.database.reference
-    }
     fun getUserProfile(){
         CoroutineScope(Dispatchers.Default).launch {
             try{
