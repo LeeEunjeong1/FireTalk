@@ -32,6 +32,7 @@ class ProfileViewModel : ViewModel(){
 
     var _error = MutableLiveData<String>()
     val errorData get() = _error
+
     fun getUserProfile(){
         CoroutineScope(Dispatchers.Default).launch {
             try{

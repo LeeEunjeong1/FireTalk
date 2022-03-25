@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,22 +15,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.firetalk.databinding.FragmentMainProfileBinding
-import com.example.firetalk.model.Friend
-import com.example.firetalk.model.User
 import com.example.firetalk.ui.LoginActivity
 import com.example.firetalk.utils.LoadingDialog
 import com.example.firetalk.utils.UserPreferences
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.*
-import com.google.firebase.database.ktx.database
-import com.google.firebase.database.ktx.getValue
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-
 class ProfileFragment : Fragment() {
 
     private var lBinding: FragmentMainProfileBinding? = null
@@ -39,8 +25,6 @@ class ProfileFragment : Fragment() {
 
     private lateinit var viewModel: ProfileViewModel
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var fireDatabase : DatabaseReference
     private var imageUri : Uri? = null
     private val loadingDialog by lazy { LoadingDialog(requireContext()) }
 
@@ -48,12 +32,8 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
         lBinding = FragmentMainProfileBinding.inflate(inflater, container, false)
 
-        auth = Firebase.auth
-        fireDatabase = Firebase.database.reference
-
         viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
 
-        imageChange = false
 
         return binding.root
 
@@ -61,6 +41,8 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        imageChange = false
 
         viewModel.getUserProfile() //프로필 정보 불러오기
         observeProfile() //프로필 매핑
