@@ -8,6 +8,7 @@
 - IDE : Android Studio
 - Language : Kotlin
 - Android Jetpack(dataBinding, ViewBinding, RecyclerView, ViewModel, LiveData)
+- Coroutines
 - Firebase
   - Authentication
   - Realtime Database
