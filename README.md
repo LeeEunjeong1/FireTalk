@@ -7,7 +7,7 @@
 ### 기술 스택 & 라이브러리
 - IDE : Android Studio
 - Language : Kotlin
-- Android Jetpack(dataBinding, ViewBinding, RecyclerView)
+- Android Jetpack(dataBinding, ViewBinding, RecyclerView, ViewModel, LiveData)
 - Firebase
   - Authentication
   - Realtime Database
