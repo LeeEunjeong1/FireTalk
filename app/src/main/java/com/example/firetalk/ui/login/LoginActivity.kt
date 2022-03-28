@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.firetalk.R
 import com.example.firetalk.databinding.ActivityLoginBinding
 import com.example.firetalk.model.User
-import com.example.firetalk.ui.Signup.SignupActivity
+import com.example.firetalk.ui.signup.SignupActivity
 import com.example.firetalk.ui.main.MainActivity
 import com.example.firetalk.utils.UserPreferences
 import com.google.android.gms.auth.api.signin.GoogleSignIn

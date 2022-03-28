@@ -1,4 +1,4 @@
-package com.example.firetalk.ui.Signup
+package com.example.firetalk.ui.signup
 
 import android.Manifest
 import android.content.Intent
