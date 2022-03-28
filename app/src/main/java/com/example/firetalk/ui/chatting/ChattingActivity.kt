@@ -1,13 +1,10 @@
 package com.example.firetalk.ui.chatting
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.firetalk.databinding.ActivityChattingBinding
-import com.example.firetalk.model.Friend
-import com.google.firebase.database.*
 
 class ChattingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChattingBinding
