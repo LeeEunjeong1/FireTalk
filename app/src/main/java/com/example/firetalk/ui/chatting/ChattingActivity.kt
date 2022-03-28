@@ -40,7 +40,9 @@ class ChattingActivity : AppCompatActivity() {
     private fun initListener(){
         with(binding){
             imageView.setOnClickListener{
-                viewModel.doChatting(friendUid!!,sendMsg.text.toString())
+                if(sendMsg.text.isNotEmpty()){
+                    viewModel.doChatting(friendUid!!,sendMsg.text.toString())
+                }
             }
         }
     }
