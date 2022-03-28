@@ -28,8 +28,8 @@ class ChattingAdapter: RecyclerView.Adapter<ChattingViewHolder>() {
     fun  clearList(){
         comments.clear()
     }
-    fun setChattingList(chat: Chat.Comment) {
-        comments.add(chat)
+    fun setChattingList(chat: List<Chat.Comment>) {
+        comments.addAll(chat)
         notifyDataSetChanged()
     }
     fun setFriend(friendImg : String,friendNa: String){
