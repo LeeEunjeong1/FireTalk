@@ -65,6 +65,9 @@ class LoginActivity :AppCompatActivity() {
                    Toast.makeText(applicationContext,"아이디 또는 비밀번호를 확인해주세요.",Toast.LENGTH_SHORT).show()
                }
            }
+            error.observe(this@LoginActivity){
+                Toast.makeText(applicationContext,"다시 한 번 시도해주세요.",Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
